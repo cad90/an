@@ -1,0 +1,169 @@
+xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:layout_margin="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:layout_below="@id/editTextUsername"
+        android:layout_margin="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Address"
+        android:layout_below="@id/editTextPassword"
+        android:layout_margin="16dp"/>
+
+    <RadioGroup
+        android:id="@+id/radioGroupGender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/editTextAddress"
+        android:layout_margin="16dp">
+
+        <RadioButton
+            android:id="@+id/radioButtonMale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Male"/>
+
+        <RadioButton
+            android:id="@+id/radioButtonFemale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"/>
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/editTextAge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Age"
+        android:layout_below="@id/radioGroupGender"
+        android:layout_margin="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextDateOfBirth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Date of Birth (YYYY-MM-DD)"
+        android:layout_below="@id/editTextAge"
+        android:layout_margin="16dp"/>
+
+    <EditText
+        android:id="@+id/editTextState"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="State"
+        android:layout_below="@id/editTextDateOfBirth"
+        android:layout_margin="16dp"/>
+
+    <Button
+        android:id="@+id/buttonSubmit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextState"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="182dp"
+        android:text="Submit" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="156dp"
+        android:layout_marginEnd="197dp"
+        android:layout_marginBottom="47dp"
+        android:text="TextView" />
+
+</RelativeLayout>
+  
+
+java
+
+
+package com.example.exp4touycrt;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText Username, editTextPassword, editTextAddress, editTextAge, editTextDateOfBirth, editTextState;
+    RadioGroup radioGroupGender;
+    Button buttonSubmit;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Username = findViewById(R.id.editTextUsername);
+        editTextPassword = findViewById(R.id.editTextPassword);
+        editTextAddress = findViewById(R.id.editTextAddress);
+        radioGroupGender = findViewById(R.id.radioGroupGender);
+        editTextAge = findViewById(R.id.editTextAge);
+        editTextDateOfBirth = findViewById(R.id.editTextDateOfBirth);
+        editTextState = findViewById(R.id.editTextState);
+        buttonSubmit = findViewById(R.id.buttonSubmit);
+
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitForm();
+            }
+        });
+    }
+
+    private void submitForm() {
+        String username = Username.getText().toString();
+        String password = editTextPassword.getText().toString();
+        String address = editTextAddress.getText().toString();
+        RadioButton selectedGenderRadioButton = findViewById(radioGroupGender.getCheckedRadioButtonId());
+        String gender = selectedGenderRadioButton.getText().toString();
+        String age = editTextAge.getText().toString();
+        String dateOfBirth = editTextDateOfBirth.getText().toString();
+        String state = editTextState.getText().toString();
+
+        // You can perform further validation and processing here
+        // For simplicity, let's just display a toast message with the collected information
+        String message = "Username: " + username +
+                "\nPassword: " + password +
+                "\nAddress: " + address +
+                "\nGender: " + gender +
+                "\nAge: " + age +
+                "\nDate of Birth: " + dateOfBirth +
+                "\nState: " + state;
+
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    }
+}
